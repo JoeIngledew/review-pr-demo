@@ -12,8 +12,8 @@ on:
         default: 0
         type: number
 
-defaults:
-  run:
+# defaults:
+#   run:
     # working-directory: ./terraform
 
 jobs:
