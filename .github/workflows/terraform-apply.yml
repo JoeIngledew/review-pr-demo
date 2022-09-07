@@ -12,9 +12,9 @@ on:
         default: 0
         type: number
 
-defaults:
-  run:
-    working-directory: ./terraform
+# defaults:
+#   run:
+#     working-directory: ./terraform
 
 jobs:
   terraform:
@@ -30,6 +30,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        # working-directory: ./terraform
 
     steps:
       - name: Checkout
@@ -39,13 +40,21 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          cd terraform
+          terraform init -input=false
         
       - name: Terraform Validate
-        run: terraform validate
+        run: |
+          cd terraform
+          terraform validate -input=false
 
       - name: Terraform Plan
-        run: terraform plan
+        run: |
+          cd terraform
+          terraform plan -input=false
         
       - name: Terraform Apply
-        run: terraform apply -var="pr_number=${{ github.event.inputs.pr_number }}" --auto-approve
+        run: |
+          cd terraform
+          terraform apply -var="pr_number=${{ github.event.inputs.pr_number }}" --auto-approve -input=false
