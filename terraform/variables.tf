@@ -1,5 +1,5 @@
 variable "rg_name" {
-    description = "Resource group name"
+    description = "Base resource group name"
     type = string
     default = "JFI_DemoPrWeb"
 }
