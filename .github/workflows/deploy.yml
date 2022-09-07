@@ -1,4 +1,4 @@
-name: Create or destroy review app
+name: ReviewApp
 
 on:
   pull_request:
