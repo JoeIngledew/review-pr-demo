@@ -52,7 +52,7 @@ jobs:
       - name: Terraform Plan
         run: |
           cd terraform
-          terraform plan -input=false
+          terraform plan -input=false -var="pr_number=${{ github.event.inputs.pr_number }}"
         
       - name: Terraform Apply
         run: |

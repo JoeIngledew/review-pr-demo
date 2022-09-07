@@ -28,31 +28,29 @@ resource "azurerm_resource_group" "rg" {
     }
 }
 
-resource "azurerm_app_service_plan" "asp" {
+resource "azurerm_service_plan" "asp" {
     name = "asp-dev-jfi-pr-demo-${var.pr_number}"
     location = azurerm_resource_group.rg.location
     resource_group_name = azurerm_resource_group.rg.name
-    kind = "Linux"
+    os_type = "Linux"
     reserved = true
-
-    sku {
-        tier = "Basic"
-        size = "B1"
-    }
+    sku_name = "B1"
 
     tags = {
         environment = "Dev/Test"
     }
 }
 
-resource "azurerm_app_service" "app" {
+resource "azurerm_linux_web_app" "app" {
     name = "app-dev-jfi-pr-demo-${var.pr_number}"
     location = azurerm_resource_group.rg.location
     resource_group_name = azurerm_resource_group.rg.name
-    app_service_plan_id = azurerm_app_service_plan.asp.id
+    service_plan_id = azurerm_service_plan.asp.id
 
     site_config {
-      linux_fx_version = "DOTNETCORE|6.0"
+      application_stack {
+        dotnet_version = "6.0"
+      }
     }
 
     app_settings = {}
@@ -63,6 +61,6 @@ resource "azurerm_app_service" "app" {
 }
 
 output "app_service_url" {
-    value = azurerm_app_service.app.default_site_hostname
+    value = azurerm_linux_web_app.app.default_hostname
     description = "Service URL for PR"
 }
