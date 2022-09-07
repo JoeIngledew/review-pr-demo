@@ -9,8 +9,8 @@ on:
       pr_number:
         description: "PR number"
         required: true
-        default: 0
-        type: number
+        default: "0"
+        type: string
 
 # defaults:
 #   run:
@@ -24,9 +24,6 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZ_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZ_TENANT_ID }}
-      TERRAFORM_STORAGE_ACCT: "sajfitfm"
-      TERRAFORM_RG: "JFI_DemoPrWeb"
-      TERRAFORM_STORAGE_CONTAINER: "state"
     defaults:
       run:
         shell: bash
@@ -52,9 +49,9 @@ jobs:
       - name: Terraform Plan
         run: |
           cd terraform
-          terraform plan -input=false -var="pr_number=${{ github.event.inputs.pr_number }}"
+          terraform plan -input=false -var="pr_number=${{ inputs.pr_number }}"
         
       - name: Terraform Apply
         run: |
           cd terraform
-          terraform apply -var="pr_number=${{ github.event.inputs.pr_number }}" --auto-approve -input=false
+          terraform apply -var="pr_number=${{ inputs.pr_number }}" --auto-approve -input=false

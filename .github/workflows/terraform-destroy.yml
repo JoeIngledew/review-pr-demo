@@ -9,8 +9,8 @@ on:
       pr_number:
         description: "PR number"
         required: true
-        default: 0
-        type: number
+        default: "0"
+        type: string
 
 # defaults:
 #   run:
@@ -44,4 +44,4 @@ jobs:
       - name: Terraform Destroy
         run: |
           cd terraform
-          terraform destroy -var="pr_number=${{ github.event.inputs.pr_number }}" --auto-approve
+          terraform destroy -var="pr_number=${{ inputs.pr_number }}" --auto-approve

@@ -24,5 +24,5 @@ variable "storage_account_container" {
 
 variable "pr_number" {
     description = "PR number"
-    type = number
+    type = string
 }

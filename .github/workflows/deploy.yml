@@ -8,19 +8,19 @@ jobs:
   provision:
     uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-apply.yml@main
     with:
-      pr_number: ${{ github.event.number }}
+      pr_number: ${{ github.event.pull_request.number }}
     if: ${{ github.event.action != 'closed' }}
     secrets: inherit
   build_and_deploy:
     uses: JoeIngledew/review-pr-demo/.github/workflows/deploy-app.yml@main
     with:
-      pr_number: ${{ github.event.number }}
+      pr_number: ${{ github.event.pull_request.number }}
     if: ${{ github.event.action != 'closed' }}
     needs: provision
     secrets: inherit
   cleardown:
     uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-destroy.yml@main
     with:
-      pr_number: ${{ github.event.number }}
+      pr_number: ${{ github.event.pull_request.number }}
     if: ${{ github.event.action == 'closed' }}
     secrets: inherit
