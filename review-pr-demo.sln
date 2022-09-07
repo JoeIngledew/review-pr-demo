@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jfi.DemoPrWeb", "Jfi.DemoPrWeb\Jfi.DemoPrWeb.csproj", "{76769A11-3826-4DC9-9E9A-32C645F6F524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jfi.DemoPrWeb.Tests", "Jfi.DemoPrWeb.Tests\Jfi.DemoPrWeb.Tests.csproj", "{3159BB53-4B84-47CB-B129-45FDCC0E6769}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jfi.DemoPrWeb.E2E", "Jfi.DemoPrWeb.E2E\Jfi.DemoPrWeb.E2E.csproj", "{AEE030BA-C405-4879-9D5D-438C1AC864FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{76769A11-3826-4DC9-9E9A-32C645F6F524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76769A11-3826-4DC9-9E9A-32C645F6F524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76769A11-3826-4DC9-9E9A-32C645F6F524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3159BB53-4B84-47CB-B129-45FDCC0E6769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3159BB53-4B84-47CB-B129-45FDCC0E6769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3159BB53-4B84-47CB-B129-45FDCC0E6769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3159BB53-4B84-47CB-B129-45FDCC0E6769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE030BA-C405-4879-9D5D-438C1AC864FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE030BA-C405-4879-9D5D-438C1AC864FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE030BA-C405-4879-9D5D-438C1AC864FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE030BA-C405-4879-9D5D-438C1AC864FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

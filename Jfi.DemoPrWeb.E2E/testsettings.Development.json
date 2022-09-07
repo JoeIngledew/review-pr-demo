@@ -1,0 +1,7 @@
+{
+    "E2E": {
+      "BaseUrl": "https://localhost:7167",
+      "Browser": "chrome",
+      "CI": false
+    }
+  }

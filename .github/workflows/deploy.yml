@@ -18,6 +18,20 @@ jobs:
     if: ${{ github.event.action != 'closed' }}
     needs: provision
     secrets: inherit
+  end_to_end:
+    uses: JoeIngledew/review-pr-demo/.github/workflows/e2e.yml@main
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+    if: ${{ github.event.action != 'closed' }}
+    needs: build_and_deploy
+    secrets: inherit
+  accessibility_test:
+    uses: JoeIngledew/review-pr-demo/.github/workflows/a11y.yml@main
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+    if: ${{ github.event.action != 'closed' }}
+    needs: build_and_deploy
+    secrets: inherit
   cleardown:
     uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-destroy.yml@main
     with:
