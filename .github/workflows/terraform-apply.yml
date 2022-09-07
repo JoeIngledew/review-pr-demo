@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Terraform
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      pr_number:
+        description: "PR number"
+        required: true
+        default: 0
+        type: number
+
+defaults:
+  run:
+    working-directory: ./terraform
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZ_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZ_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZ_TENANT_ID }}
+      TERRAFORM_STORAGE_ACCT: "sajfitfm"
+      TERRAFORM_RG: "JFI_DemoPrWeb"
+      TERRAFORM_STORAGE_CONTAINER: "state"
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+
+      - name: Setup terraform
+      - uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+        
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+        
+      - name: Terraform Apply
+        run: terraform apply -var="pr_number=${{ github.event.inputs.pr_number }}" --auto-approve

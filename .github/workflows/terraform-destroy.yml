@@ -4,12 +4,17 @@ name: Terraform
 
 # Controls when the workflow will run
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      TFAction:
-        description: "Terraform Apply / Destroy"
+      pr_number:
+        description: "PR number"
         required: true
-        default: "apply"
+        default: 0
+        type: number
+
+defaults:
+  run:
+    working-directory: ./terraform
 
 jobs:
   terraform:
@@ -19,9 +24,6 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZ_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZ_TENANT_ID }}
-      TERRAFORM_STORAGE_ACCT: "sajfitfm"
-      TERRAFORM_RG: "JFI_DemoPrWeb"
-      TERRAFORM_STORAGE_CONTAINER: "state"
     defaults:
       run:
         shell: bash
@@ -33,5 +35,8 @@ jobs:
       - name: Setup terraform
       - uses: hashicorp/setup-terraform@v1
 
-      #- name: Terraform init
-      #  run: terraform plan -out=plan.tfplan -input=false -var="location=ukwest" -var="resource_group_name=JFI_DemoPrWeb"
+      - name: Terraform Init
+        run: terraform init
+       
+      - name: Terraform Destroy
+        run: terraform destroy -var="pr_number=${{ github.event.inputs.pr_number }}" --auto-approve
