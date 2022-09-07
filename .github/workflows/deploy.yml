@@ -1,27 +1,29 @@
-name: Terraform
+name: Create or destroy review app
 
 on:
   pull_request:
     types: [opened, reopened, synchronize, closed]
 
 jobs:
-  build_and_deploy:
+  provision:
+    uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-apply@main
+    with:
+      pr_number: ${{ github.event.number }}
     if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
-    steps:
-      - name: Provision resources
-        uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-apply@main
-        with:
-          pr_number: ${{ github.event.number }}
-      - name: Deploy app
-        uses: JoeIngledew/review-pr-demo/.github/workflows/deploy-app@main
-        with:
-          pr_number: ${{ github.event.number }}
+    secrets: inherit
+  build_and_deploy:
+    uses: JoeIngledew/review-pr-demo/.github/workflows/deploy-app@main
+    with:
+      pr_number: ${{ github.event.number }}
+    if: ${{ github.event.action != 'closed' }}
+    runs-on: ubuntu-latest
+    needs: provision
+    secrets: inherit
   cleardown:
+    uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-destroy@main
+    with:
+      pr_number: ${{ github.event.number }}
     if: ${{ github.event.action == 'closed' }}
     runs-on: ubuntu-latest
-    steps:
-      - name: De-provision resources
-        uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-destroy@main
-        with:
-          pr_number: ${{ github.event.number }}
+    secrets: inherit
