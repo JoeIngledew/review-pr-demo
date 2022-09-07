@@ -6,9 +6,9 @@ terraform {
         }
     }
     backend "azurerm" {
-        resource_group_name  = var.rg_name
-        storage_account_name = var.storage_account_name
-        container_name       = var.storage_account_container
+        resource_group_name  = "JFI_DemoPrWeb"
+        storage_account_name = "jfitfstore01"
+        container_name       = "tfstate"
         key                  = "terraform.tfstate"
     }
 
