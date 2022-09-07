@@ -47,7 +47,7 @@ jobs:
       - name: Terraform Validate
         run: |
           cd terraform
-          terraform validate -input=false
+          terraform validate
 
       - name: Terraform Plan
         run: |
