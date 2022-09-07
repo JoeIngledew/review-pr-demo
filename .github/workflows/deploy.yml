@@ -9,16 +9,19 @@ jobs:
     if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-apply@main
+      - name: Provision resources
+        uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-apply@main
         with:
           pr_number: ${{ github.event.number }}
-      - uses: JoeIngledew/review-pr-demo/.github/workflows/deploy-app@main
+      - name: Deploy app
+        uses: JoeIngledew/review-pr-demo/.github/workflows/deploy-app@main
         with:
           pr_number: ${{ github.event.number }}
   cleardown:
     if: ${{ github.event.action == 'closed' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-destroy@main
+      - name: De-provision resources
+        uses: JoeIngledew/review-pr-demo/.github/workflows/terraform-destroy@main
         with:
           pr_number: ${{ github.event.number }}
