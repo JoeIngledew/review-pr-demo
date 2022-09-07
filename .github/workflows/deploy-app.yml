@@ -38,6 +38,12 @@ jobs:
         with: 
           app-name: "app-dev-jfi-pr-demo-${{ inputs.pr_number }}"
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+      - name: Azure appsettings
+        uses: azure/appservice-settings@v1
+        with: 
+          app-name: "app-dev-jfi-pr-demo-${{ inputs.pr_number }}"
+          app-settings-json: '${{ secrets.WEB_APP_SETTINGS }}'
+          connection-strings-json: '${{ secrets.WEB_APP_CONNECTION_STRINGS }}'
       - name: logout
         run: |
           az logout
